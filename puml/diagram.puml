@@ -1,0 +1,60 @@
+@startuml
+
+' Define classes for Cassandra tables
+class Clients {
+  +client_id: int
+  +first_name: text
+  +last_name: text
+  +email: text
+}
+
+class Products {
+  +product_id: int
+  +name: text
+  +price: decimal
+  +description: text
+  +category: text
+}
+
+class Orders {
+  +order_id: int
+  +client_id: int
+  +order_date: timestamp
+  +total_amount: decimal
+  +order_details: text
+}
+
+class Reviews {
+  +review_id: int
+  +client_id: int
+  +product_id: int
+  +review_text: text
+  +rating: int
+}
+
+class OrdersByClientDate {
+  +client_id: int
+  +order_id: int
+  +order_date: timestamp
+  +total_amount: decimal
+  +order_details: text
+}
+
+class ProductReviewsByProductRating {
+  +product_id: int
+  +rating: int
+  +review_date: timestamp
+  +review_id: int
+  +client_id: int
+  +review_text: text
+}
+
+' Define relationships
+Clients --o Orders
+Products --o Reviews
+Clients "1" *-- "*" Orders
+Products "1" *-- "*" Reviews
+Clients "1" *-- "*" OrdersByClientDate
+Products "1" *-- "*" ProductReviewsByProductRating
+
+@enduml

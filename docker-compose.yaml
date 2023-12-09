@@ -1,0 +1,6 @@
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: nosql-cassandra
+    ports:
+      - 9042:9042
