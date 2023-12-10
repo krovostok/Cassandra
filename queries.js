@@ -5,7 +5,6 @@ async function addClient(clientId, firstName, lastName, email) {
     try {
         const result = await execute(query, [clientId, firstName, lastName, email]);
 
-        // Check the result to determine if the insert was successful
         if (result.wasApplied()) {
             return 'Client added successfully';
         } else {
@@ -21,7 +20,7 @@ async function listProducts() {
     const query = 'SELECT * FROM eshop.products';
     try {
         const products = await execute(query, []);
-        return products; // Assuming this returns an array of product objects
+        return products;
     } catch (error) {
         console.error('Error retrieving products:', error);
         return 'Failed to retrieve products';
@@ -33,10 +32,8 @@ async function addOrder(orderId, clientId, orderDate, totalAmount, orderDetails)
     const insertOrdersByClientDateQuery = 'INSERT INTO eshop.orders_by_client_date (client_id, order_id, order_date, total_amount, order_details) VALUES (?, ?, ?, ?, ?)';
     
     try {
-        // Insert data into the orders table
         await execute(insertOrdersQuery, [orderId, clientId, orderDate, totalAmount, orderDetails]);
 
-        // Insert the same data into the orders_by_client_date table
         await execute(insertOrdersByClientDateQuery, [clientId, orderId, orderDate, totalAmount, orderDetails]);
 
         return 'Order added successfully';
@@ -51,7 +48,7 @@ async function getOrdersByClient(clientId) {
     const query = 'SELECT * FROM eshop.orders WHERE client_id = ?';
     try {
         const orders = await execute(query, [clientId]);
-        return orders; // Assuming this returns an array of order objects
+        return orders;
     } catch (error) {
         console.error('Error retrieving orders:', error);
         return 'Failed to retrieve orders';
@@ -63,10 +60,8 @@ async function addProductReview(productId, reviewId, reviewDate, clientId, revie
     const insertProductReviewsQuery = 'INSERT INTO eshop.product_reviews_by_product_rating (product_id, review_id, review_date, client_id, review_text, rating) VALUES (?, ?, ?, ?, ?, ?)';
 
     try {
-        // Insert data into the reviews table
         await execute(insertReviewsQuery, [reviewId, clientId, productId, reviewText, rating]);
 
-        // Insert the same data into the product_reviews table
         await execute(insertProductReviewsQuery, [productId, reviewId, reviewDate, clientId, reviewText, rating]);
 
         return 'Review added successfully';
@@ -80,7 +75,7 @@ async function getProductReviews(productId, rating) {
     const query = 'SELECT * FROM eshop.product_reviews_by_product_rating WHERE product_id = ? AND rating = ?';
     try {
         const reviews = await execute(query, [productId, rating]);
-        return reviews; // Assuming this returns an array of review objects
+        return reviews;
     } catch (error) {
         console.error('Error retrieving product reviews:', error);
         return 'Failed to retrieve product reviews';
@@ -91,7 +86,7 @@ async function getClientOrders(clientId, orderDate) {
     const query = 'SELECT * FROM eshop.orders_by_client_date WHERE client_id = ? AND order_date = ?';
     try {
         const orders = await execute(query, [clientId, orderDate]);
-        return orders; // Assuming this returns an array of order objects
+        return orders;
     } catch (error) {
         console.error('Error retrieving client orders:', error);
         return 'Failed to retrieve client orders';

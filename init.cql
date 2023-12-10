@@ -1,10 +1,7 @@
--- Sukuriame keyspace 'eshop'
 CREATE KEYSPACE IF NOT EXISTS eshop WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1};
 
--- Aktyvuojame keyspace 'eshop'
 USE eshop;
 
--- Sukuriame lentelę 'clients'
 CREATE TABLE IF NOT EXISTS clients (
     client_id int PRIMARY KEY,
     first_name text,
@@ -12,7 +9,6 @@ CREATE TABLE IF NOT EXISTS clients (
     email text
 );
 
--- Sukuriame lentelę 'products'
 CREATE TABLE IF NOT EXISTS products (
     product_id int PRIMARY KEY,
     name text,
@@ -21,7 +17,6 @@ CREATE TABLE IF NOT EXISTS products (
     category text
 );
 
--- Atnaujiname lentelę 'orders', įtraukdami užsakymo detales kaip tekstą
 CREATE TABLE IF NOT EXISTS orders (
     order_id int,
     client_id int,
@@ -31,7 +26,6 @@ CREATE TABLE IF NOT EXISTS orders (
     PRIMARY KEY ((client_id), order_id)
 ) WITH CLUSTERING ORDER BY (order_id DESC);
 
--- Sukuriame lentelę 'reviews'
 CREATE TABLE IF NOT EXISTS reviews (
     review_id int PRIMARY KEY,
     client_id int,
@@ -40,7 +34,6 @@ CREATE TABLE IF NOT EXISTS reviews (
     rating int
 );
 
--- Sukuriame lentelę 'orders_by_clients' 
 CREATE TABLE IF NOT EXISTS orders_by_client_date (
     client_id int,
     order_id int,
@@ -50,8 +43,6 @@ CREATE TABLE IF NOT EXISTS orders_by_client_date (
     PRIMARY KEY (client_id, order_date, order_id)
 ) WITH CLUSTERING ORDER BY (order_date DESC, order_id ASC);
 
-
--- Sukuriame lentelę 'product_reviews'
 CREATE TABLE IF NOT EXISTS product_reviews_by_product_rating (
     product_id int,
     rating int,
@@ -62,9 +53,8 @@ CREATE TABLE IF NOT EXISTS product_reviews_by_product_rating (
     PRIMARY KEY ((product_id, rating), review_date, review_id)
 ) WITH CLUSTERING ORDER BY (review_date DESC, review_id ASC);
 
-
-INSERT INTO products (product_id, name, price, description, category) VALUES (1, 'Prekė 1', 100.00, 'Aprašymas 1', 'Kategorija 1');
-INSERT INTO products (product_id, name, price, description, category) VALUES (2, 'Prekė 2', 200.00, 'Aprašymas 2', 'Kategorija 2');
-INSERT INTO products (product_id, name, price, description, category) VALUES (3, 'Prekė 3', 300.00, 'Aprašymas 3', 'Kategorija 3');
-INSERT INTO products (product_id, name, price, description, category) VALUES (4, 'Prekė 4', 400.00, 'Aprašymas 4', 'Kategorija 4');
-INSERT INTO products (product_id, name, price, description, category) VALUES (5, 'Prekė 5', 500.00, 'Aprašymas 5', 'Kategorija 5');
+INSERT INTO products (product_id, name, price, description, category) VALUES (1, 'No', 100.00, 'regular No', 'regular answers');
+INSERT INTO products (product_id, name, price, description, category) VALUES (2, 'Maybe', 200.00, 'regular Maybe', 'regular answers');
+INSERT INTO products (product_id, name, price, description, category) VALUES (3, 'Yes', 300.00, 'regular Yes', 'regular answers');
+INSERT INTO products (product_id, name, price, description, category) VALUES (4, 'Definitely', 400.00, 'regular Definitely', 'regular answers');
+INSERT INTO products (product_id, name, price, description, category) VALUES (69, 'Kys', 500.00, 'universal answer', 'ultimates');

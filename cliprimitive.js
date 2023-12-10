@@ -5,7 +5,7 @@ const { addClient, listProducts, addOrder, getOrdersByClient, addProductReview }
 const process = require('process');
 
 const main = async () => {
-    const args = process.argv.slice(2); // Slice off the first two elements
+    const args = process.argv.slice(2);
 
     switch(args[0]) {
         case 'addclient':
